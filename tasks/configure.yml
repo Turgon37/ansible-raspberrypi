@@ -1,0 +1,9 @@
+---
+
+- name: Create smartd configuration file
+  template:
+    src:   config.txt.j2
+    dest:  '{{ raspberrypi__config_file }}'
+    owner: root
+    group: root
+    mode:  0755

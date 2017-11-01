@@ -1,0 +1,113 @@
+---
+# defaults file for raspberrypi
+
+# Simple placeholder to allow other roles to detect this role
+raspberrypi__role: True
+
+# Enable facts deploiement
+raspberrypi__facts: True
+
+# Path to the main configuration file
+raspberrypi__config_file: /boot/config.txt
+
+#raspberrypi__sdtv_mode: 0
+#raspberrypi__sdtv_aspect: 1
+#raspberrypi__sdtv_disable_colourburst: 1
+
+# uncomment if you get no picture on HDMI for a default "safe" mode
+#raspberrypi__hdmi_safe: 0
+
+# uncomment if hdmi display is not detected and composite is being output
+#raspberrypi__hdmi_force_hotplug: 0
+
+#raspberrypi__hdmi_ignore_hotplug: 1
+
+# uncomment to force a HDMI mode rather than DVI. This can make audio work in
+# DMT (computer monitor) modes
+#raspberrypi__hdmi_drive: 1
+
+#raspberrypi__hdmi_ignore_edid: '0xa5000080'
+#raspberrypi__hdmi_edid_file:
+#raspberrypi__hdmi_ignore_edid_audio:
+#raspberrypi__hdmi_force_edid_audio: 0
+#raspberrypi__hdmi_force_edid_3d:
+#raspberrypi__avoid_edid_fuzzy_match
+#raspberrypi__hdmi_pixel_encoding
+
+# uncomment to force a specific HDMI mode (this will force VGA)
+#raspberrypi__hdmi_group
+#raspberrypi__hdmi_mode
+
+# uncomment to increase signal to HDMI, if you have interference, blanking, or
+# no display
+#raspberrypi__config_hdmi_boost: 4
+
+#raspberrypi__hdmi_ignore_cec_init
+#raspberrypi__hdmi_ignore_cec
+
+# uncomment the following to adjust overscan. Use positive numbers if console
+# goes off screen, and negative if there is too much border
+#raspberrypi__overscan_left: 0
+#raspberrypi__overscan_right: 0
+#raspberrypi__overscan_top: 0
+#raspberrypi__overscan_bottom: 0
+# uncomment this if your display has a black border of unused pixels visible
+# and your display can output without overscan
+raspberrypi__disable_overscan: 1
+
+# uncomment to force a console size. By default it will be display's size minus
+# overscan.
+#raspberrypi__framebuffer_width: 1280
+#raspberrypi__framebuffer_height: 720
+#raspberrypi__framebuffer_depth
+#raspberrypi__framebuffer_ignore_alpha
+
+#raspberrypi__display_rotate:
+
+#raspberrypi__decode_MPG2
+#raspberrypi__decode_WVC1
+
+#raspberrypi__disable_camera_led
+
+#raspberrypi__test_mode
+
+#raspberrypi__disable_l2cache:
+raspberrypi__gpu_mem: 16
+#raspberrypi__gpu_mem_256
+#raspberrypi__gpu_mem_512
+#raspberrypi__disable_pvt
+
+#raspberrypi__cma_lwm
+#raspberrypi__cma_hwm
+
+#raspberrypi__disable_commandline_tags
+#raspberrypi__cmdline
+#raspberrypi__kernel
+#raspberrypi__kernel_address: '0x00000000'
+#raspberrypi__kernel_old
+#raspberrypi__ramfsfile:
+#raspberrypi__ramfsaddr: '0x00000000'
+#raspberrypi__initramfs: 'initramf.gz 0x00800000'
+#raspberrypi__device_tree_address: '0x00000000'
+#raspberrypi__init_uart_baud: 115200
+#raspberrypi__init_uart_clock: 3000000
+#raspberrypi__init_emmc_clock: 100000000
+#raspberrypi__boot_delay
+#raspberrypi__boot_delay_ms
+#raspberrypi__avoid_safe_mode
+#raspberrypi__disable_splash
+
+#raspberrypi__force_turbo
+#raspberrypi__initial_turbo
+#raspberrypi__temp_limit
+#raspberrypi__arm_freq
+#raspberrypi__arm_freq_min
+#raspberrypi__gpu_freq
+#raspberrypi__core_freq
+#raspberrypi__core_freq_min
+#raspberrypi__h264_freq
+#raspberrypi__isp_freq
+#raspberrypi__v3d_freq
+#raspberrypi__sdram_freq
+#raspberrypi__sdram_freq_min
+#raspberrypi__avoid_pwm_pll
