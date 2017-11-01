@@ -435,7 +435,7 @@ disable_overscan={{ raspberrypi__disable_overscan|int }}
 framebuffer_width={{ raspberrypi__framebuffer_width|int }}
 {% endif %}
 
-{% if raspberrypi__disable_overscan is defined %}
+{% if raspberrypi__framebuffer_height is defined %}
 ## framebuffer_height
 ##     Console framebuffer height in pixels. Default is display height minus
 ##     overscan.
