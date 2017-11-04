@@ -9,7 +9,22 @@ raspberrypi__facts: True
 
 # Path to the main configuration file
 raspberrypi__config_file: /boot/config.txt
+# Path to the file which contains kernel options
+raspberrypi__cmdline_file: /boot/cmdline.txt
 
+## cmdline options
+# List of options to apply globally over hosts
+raspberrypi__cmdline_global_options: []
+# List of options to apply per hostgroup
+raspberrypi__cmdline_group_options: []
+# List of host specific options
+raspberrypi__cmdline_host_options: []
+# Merged list of options
+raspberrypi__cmdline_options: '{{ raspberrypi__cmdline_global_options|
+                                    union(raspberrypi__cmdline_group_options)|
+                                    union(raspberrypi__cmdline_host_options) }}'
+
+## config options
 #raspberrypi__sdtv_mode: 0
 #raspberrypi__sdtv_aspect: 1
 #raspberrypi__sdtv_disable_colourburst: 1
@@ -95,7 +110,7 @@ raspberrypi__gpu_mem: 16
 #raspberrypi__boot_delay
 #raspberrypi__boot_delay_ms
 #raspberrypi__avoid_safe_mode
-#raspberrypi__disable_splash
+raspberrypi__disable_splash: 1
 
 #raspberrypi__force_turbo
 #raspberrypi__initial_turbo

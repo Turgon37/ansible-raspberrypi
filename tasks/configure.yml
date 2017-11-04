@@ -1,9 +1,38 @@
 ---
 
-- name: Create smartd configuration file
+- name: Create config.txt configuration file
   template:
     src:   config.txt.j2
     dest:  '{{ raspberrypi__config_file }}'
     owner: root
     group: root
     mode:  0755
+
+- name: Read current cmdline options string
+  slurp:
+    src: '{{ raspberrypi__cmdline_file }}'
+  register: _raspberrypi__cmdline_raw
+
+- name: Format cmdline
+  set_fact:
+    _raspberrypi__cmdline: '{{ _raspberrypi__cmdline_raw.content|b64decode }}'
+
+- name: Add cmdline options
+  set_fact:
+    _raspberrypi__cmdline: "{{ [_raspberrypi__cmdline, item.option]|join(' ') }}"
+  with_items: '{{ raspberrypi__cmdline_options }}'
+  when: item.state|d('present') == 'present' and item.option not in _raspberrypi__cmdline
+
+- name: Remove cmdline options
+  set_fact:
+    _raspberrypi__cmdline: "{{ _raspberrypi__cmdline|replace(item.option, '') }}"
+  with_items: '{{ raspberrypi__cmdline_options }}'
+  when: item.state|d('present') == 'absent' and item.option in _raspberrypi__cmdline
+
+- name: Save cmdline options into file
+  copy:
+    dest:    '{{ raspberrypi__cmdline_file }}'
+    content: '{{ _raspberrypi__cmdline }}'
+    owner:   root
+    group:   root
+    mode:    0755
