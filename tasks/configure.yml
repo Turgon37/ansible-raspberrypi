@@ -12,6 +12,7 @@
   slurp:
     src: '{{ raspberrypi__cmdline_file }}'
   register: _raspberrypi__cmdline_raw
+  check_mode: no
 
 - name: Format cmdline
   set_fact:
