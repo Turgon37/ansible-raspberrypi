@@ -20,7 +20,7 @@
 
 - name: Add cmdline options
   set_fact:
-    _raspberrypi__cmdline: "{{ [_raspberrypi__cmdline, item.option]|join(' ') }}"
+    _raspberrypi__cmdline: "{{ [_raspberrypi__cmdline|trim, item.option]|join(' ') }}"
   with_items: '{{ raspberrypi__cmdline_options }}'
   when: item.state|d('present') == 'present' and item.option not in _raspberrypi__cmdline
 
@@ -33,7 +33,7 @@
 - name: Save cmdline options into file
   copy:
     dest:    '{{ raspberrypi__cmdline_file }}'
-    content: '{{ _raspberrypi__cmdline }}'
+    content: "{{ _raspberrypi__cmdline|trim~'\n' }}"
     owner:   root
     group:   root
     mode:    0755
