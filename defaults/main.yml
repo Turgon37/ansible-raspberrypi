@@ -7,6 +7,9 @@ raspberrypi__role: True
 # Enable facts deploiement
 raspberrypi__facts: True
 
+# Name of hciuart service
+raspberrypi__hciuart_service: hciuart
+
 # Path to the main configuration file
 raspberrypi__config_file: /boot/config.txt
 # Path to the file which contains kernel options

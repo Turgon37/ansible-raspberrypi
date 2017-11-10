@@ -1,0 +1,8 @@
+---
+
+- name: Ensure hciuart is started and enabled on boot
+  service:
+    name:    '{{ raspberrypi__hciuart_service }}'
+    enabled: yes
+    state:   started
+  when: ansible_local.raspberrypi.hardware_revision_informations.model_version_major|d(0)|version_compare('3', '>=')
