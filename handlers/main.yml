@@ -1,5 +1,0 @@
----
-# handlers file for raspberrypi
-
-- name: re-gather-facts
-  setup: ~

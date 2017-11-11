@@ -5,4 +5,4 @@
     name:    '{{ raspberrypi__hciuart_service }}'
     enabled: yes
     state:   started
-  when: ansible_local.raspberrypi.hardware_revision_informations.model_version_major|d(0)|version_compare('3', '>=')
+  when: (ansible_local.raspberrypi.hardware_revision_informations.model_version_major)|d(0)|version_compare('3', '>=')

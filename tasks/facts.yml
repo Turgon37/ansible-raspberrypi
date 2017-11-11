@@ -13,4 +13,8 @@
     src:  files/raspberrypi.py
     dest: "{{ facts__dir|d('/etc/ansible/facts.d') }}/raspberrypi.fact"
     mode: 0755
-  notify: ['re-gather-facts']
+  register: _raspberrypi_facts
+
+- name: Re gather facts
+  setup: ~
+  when: _raspberrypi_facts|changed
