@@ -12,11 +12,11 @@
       skip: true
   tags: ['always']
 
+- include_tasks: facts.yml
+  when: raspberrypi__facts|bool
+
 - import_tasks: configure.yml
   tags: ['raspberrypi', 'raspberrypi-configure']
 
 - import_tasks: service.yml
   tags: ['raspberrypi', 'raspberrypi-service']
-
-- include_tasks: facts.yml
-  when: raspberrypi__facts|bool
