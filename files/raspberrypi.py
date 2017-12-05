@@ -6,10 +6,15 @@ import re
 import subprocess
 import sys
 
-content=dict()
+content=dict({
+  'codecs_enabled': [],
+  'codecs_disabled': [],
+})
 
 device_tree_dir = '/proc/device-tree'
 model_file = device_tree_dir  + '/model'
+
+codecs_names = ['H264', 'MPG2', 'WVC1', 'MPG4', 'MJPG', 'WMV9']
 
 firmware_version_re = re.compile('^version\s+(?P<version>[^ ]+)')
 hardware_version_re = re.compile('^Hardware[:\s]+(?P<version>[^ ]+)')
@@ -84,6 +89,13 @@ try:
     if os.path.isfile(model_file):
         hdl = open(model_file, 'r')
         content['model_string'] = stripped(hdl.read())
+    # Codecs informations
+    for codec in codecs_names:
+        result = subprocess.check_output(['/usr/bin/env', 'vcgencmd', 'codec_enabled', codec], universal_newlines=True)
+        if 'enabled' in result:
+            content['codecs_enabled'].append(codec)
+        else:
+            content['codecs_disabled'].append(codec)
 except subprocess.CalledProcessError as e:
     content['error'] = str(e)
 

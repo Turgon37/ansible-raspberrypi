@@ -1,0 +1,30 @@
+---
+
+- name: Configure zabbix userparameters
+  include_role:
+    name: zabbix-common
+    tasks_from: userparameter
+  vars:
+    zabbix_common__userparameter:
+      name: vcgencmd
+      comment: Theses items get the hardware information of the Raspberry PI using the vcgencmd command
+      userparameter:
+        - key: raspberry.cpu.temperature
+          command: cat /sys/class/thermal/thermal_zone0/temp
+          comment: Get CPU core temperature. exemple "45622" for 45.6 C
+        - key: raspberry.voltage[*]
+          command: >
+            /bin/bash -c 'expr "$(/usr/bin/vcgencmd measure_volts $1)" : "volt=\([0-9\.]\+\)V"'
+          sudo: True
+          comment: voltages
+        - key: raspberry.frequency[*]
+          command: >
+            /bin/bash -c 'expr "$(/usr/bin/vcgencmd measure_clock $1)" : "frequency([0-9]\+)=\([0-9]\+\)"'
+          sudo: True
+          comment: frequencies
+        - key: raspberry.firmware_version
+          command: >
+            /bin/bash -c 'expr "$(/usr/bin/vcgencmd version)" : ".*version \([^ ]*\)"'
+          sudo: True
+          comment: Firmware version
+      state: present
