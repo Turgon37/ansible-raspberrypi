@@ -20,3 +20,7 @@
 
 - import_tasks: service.yml
   tags: ['raspberrypi', 'raspberrypi-service']
+
+- include_tasks: 'monitoring-{{ raspberrypi__monitoring }}.yml'
+  when: raspberrypi__monitoring is defined
+  tags: ['raspberrypi', 'raspberrypi-monitoring']

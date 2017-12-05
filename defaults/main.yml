@@ -7,6 +7,9 @@ raspberrypi__role: True
 # Enable facts deploiement
 raspberrypi__facts: True
 
+# Choose the monitoring backend to configure (if available)
+#raspberrypi__monitoring:
+
 # Name of hciuart service
 raspberrypi__hciuart_service: hciuart
 
