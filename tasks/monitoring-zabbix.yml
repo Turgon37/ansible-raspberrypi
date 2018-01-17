@@ -1,5 +1,21 @@
 ---
 
+- name: Create custom scripts directory
+  file:
+    path:  "{{ zabbix_agent__custom_scripts_directory|d('/opt/zabbix-agent-scripts') }}"
+    owner: root
+    group: root
+    mode:  0755
+    state: directory
+
+- name: Install raspberrypi firmware version check script
+  copy:
+    src:   raspberrypi_check_firmware_update.sh
+    dest:  "{{ zabbix_agent__custom_scripts_directory|d('/opt/zabbix-agent-scripts') }}/raspberrypi_check_firmware_update.sh"
+    owner: root
+    group: root
+    mode:  0755
+
 - name: Configure zabbix userparameters
   include_role:
     name: zabbix-common
