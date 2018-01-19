@@ -1,6 +1,6 @@
 ---
 
-- name: Configure zabbix userparameters
+- name: Configure zabbix userparameters available by vcgencmd
   include_role:
     name: zabbix-common
     tasks_from: userparameter
@@ -27,8 +27,19 @@
             /bin/bash -c 'expr "$(/usr/bin/vcgencmd version)" : ".*version \([^ ]*\)"'
           sudo: True
           comment: Firmware version
+      state: present
+
+- name: Configure zabbix userparameters for raspberrypi
+  include_role:
+    name: zabbix-common
+    tasks_from: userparameter
+  vars:
+    zabbix_common__userparameter:
+      name: raspberrypi
+      comment: Miscellaneous for raspberry pi
+      userparameter:
         - key: raspberry.firmware_update
-          command: '{{ raspberrypi__custom_scripts_directory }}/raspberrypi_check_firmware_update.sh 2>/dev/null | grep --quiet --count UPDATE_AVAILABLE'
+          command: '{{ raspberrypi__custom_scripts_directory }}/raspberrypi_check_firmware_update.sh 2>/dev/null | grep --count UPDATE_AVAILABLE'
           sudo: True
           comment: Firmware version updates
       state: present
