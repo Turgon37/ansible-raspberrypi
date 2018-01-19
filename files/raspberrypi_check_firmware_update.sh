@@ -4,25 +4,32 @@
 RPI_UPDATE=`which rpi-update`
 
 if command -v "$RPI_UPDATE" >/dev/null 2>&1; then
-  source <(grep --extended-regexp '^[A-Z_]+=' "$RPI_UPDATE") 
-else
+  # Source functions
+  source <(sed -n '/function /,/^}/p' "$RPI_UPDATE")
+  # Source variables
+  source <(grep --extended-regexp '^[A-Z_]+=' "$RPI_UPDATE")
+fi
+
+# GITREV must be filled
+if [ -z "$GITREV" ]; then
   REPO_API=https://api.github.com/repos/Hexxeh/rpi-firmware/git/refs/heads/master
-  GITREV=$(curl -s ${REPO_API} | awk '{ if ($1 == "\"sha\":") { print substr($2, 2, 40) } }')
+  GITREV=$(curl --silent "${REPO_API}" | awk '{ if ($1 == "\"sha\":") { print substr($2, 2, 40) } }')
 fi
 
 FW_REVFILE="${FW_REVFILE:-/boot/.firmware_revision}"
 
 # without revfile
 if [[ ! -f "${FW_REVFILE}" ]]; then
-  echo 1
+  echo 'Firmware revision file not found' 1>&2
+  echo 'FIRMWARE UPDATE_AVAILABLE'
   exit 1
 else
   # no update available
   if [[ $(cat "${FW_REVFILE}") == "$GITREV" ]]; then
-    echo -n 0
+    echo 'FIRMWARE UP_TO_DATE'
   # update available
   else
-    echo -n 1
+    echo 'FIRMWARE UPDATE_AVAILABLE'
   fi
 fi
 exit 0

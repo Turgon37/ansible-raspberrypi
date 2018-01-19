@@ -19,6 +19,8 @@ raspberrypi__hciuart_service_enabled: True
 raspberrypi__config_file: /boot/config.txt
 # Path to the file which contains kernel options
 raspberrypi__cmdline_file: /boot/cmdline.txt
+# Location of custom script
+raspberrypi__custom_scripts_directory: /opt/raspberrypi-scripts
 
 ## cmdline options
 # List of options to apply globally over hosts
