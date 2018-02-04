@@ -2,10 +2,10 @@
 
 - name: Configure zabbix userparameters available by vcgencmd
   include_role:
-    name: zabbix-common
+    name: zabbix-agent
     tasks_from: userparameter
   vars:
-    zabbix_common__userparameter:
+    zabbix_agent__userparameter:
       name: vcgencmd
       comment: Theses items get the hardware information of the Raspberry PI using the vcgencmd command
       userparameter:
@@ -31,10 +31,10 @@
 
 - name: Configure zabbix userparameters for raspberrypi
   include_role:
-    name: zabbix-common
+    name: zabbix-agent
     tasks_from: userparameter
   vars:
-    zabbix_common__userparameter:
+    zabbix_agent__userparameter:
       name: raspberrypi
       comment: Miscellaneous for raspberry pi
       userparameter:
