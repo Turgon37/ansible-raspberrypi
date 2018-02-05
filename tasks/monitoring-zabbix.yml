@@ -37,7 +37,7 @@
     name: zabbix-agent
     tasks_from: userparameter
   vars:
-    zabbix_agent__userparameter:
+    zabbix_agent__userparameters:
       name: raspberrypi
       comment: Miscellaneous for raspberry pi
       userparameters:
