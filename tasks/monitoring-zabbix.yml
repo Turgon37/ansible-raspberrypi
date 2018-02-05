@@ -5,7 +5,7 @@
     name: zabbix-agent
     tasks_from: userparameter
   vars:
-    zabbix_agent__userparameters:
+    zabbix_agent__userparameter:
       name: vcgencmd
       comment: Theses items get the hardware information of the Raspberry PI using the vcgencmd command
       userparameters:
@@ -37,7 +37,7 @@
     name: zabbix-agent
     tasks_from: userparameter
   vars:
-    zabbix_agent__userparameters:
+    zabbix_agent__userparameter:
       name: raspberrypi
       comment: Miscellaneous for raspberry pi
       userparameters:
