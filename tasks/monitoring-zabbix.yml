@@ -23,7 +23,7 @@
             /bin/bash -c 'expr "$(/usr/bin/vcgencmd measure_clock $1)" : "frequency([0-9]\+)=\([0-9]\+\)"'
           sudo: True
           sudo_user: root
-          comment: frequencies
+          comment: Hardware chips frequencies
         - key: raspberry.firmware_version
           command: >
             /bin/bash -c 'expr "$(/usr/bin/vcgencmd version)" : ".*version \([^ ]*\)"'
@@ -31,6 +31,7 @@
           sudo_user: root
           comment: Firmware version
       state: present
+  tags: ['raspberrypi', 'raspberrypi-monitoring']
 
 - name: Configure zabbix userparameters for raspberrypi
   include_role:
@@ -47,3 +48,4 @@
           sudo_user: root
           comment: Firmware version updates
       state: present
+  tags: ['raspberrypi', 'raspberrypi-monitoring']
