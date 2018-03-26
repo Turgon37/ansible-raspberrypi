@@ -10,7 +10,7 @@
       comment: Theses items get the hardware information of the Raspberry PI using the vcgencmd command
       userparameters:
         - key: raspberry.cpu.temperature
-          command: cat /sys/class/thermal/thermal_zone0/temp
+          command: /usr/bin/env cat /sys/class/thermal/thermal_zone0/temp
           comment: Get CPU core temperature. exemple "45622" for 45.6 C
         - key: raspberry.voltage[*]
           command: >
