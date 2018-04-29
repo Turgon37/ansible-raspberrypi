@@ -17,4 +17,4 @@
 
 - name: Re gather facts
   setup: ~
-  when: _raspberrypi_facts|changed
+  when: _raspberrypi_facts is changed
