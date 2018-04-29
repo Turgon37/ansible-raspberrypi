@@ -5,4 +5,4 @@
     name:    '{{ raspberrypi__hciuart_service }}'
     enabled: '{{ raspberrypi__hciuart_service_enabled|bool }}'
     state:   "{{ raspberrypi__hciuart_service_enabled|bool|ternary('started', 'stopped') }}"
-  when: (ansible_local.raspberrypi.hardware_revision_informations.model_version_major)|d(0)|version_compare('3', '>=')
+  when: (ansible_local.raspberrypi.hardware_revision_informations.model_version_major)|d(0) is version_compare('3', '>=')
