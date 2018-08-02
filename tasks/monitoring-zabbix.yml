@@ -3,7 +3,7 @@
 - name: Configure zabbix userparameters available by vcgencmd
   include_role:
     name: zabbix-agent
-    tasks_from: userparameter
+    tasks_from: types/user_parameter
   vars:
     zabbix_agent__userparameter:
       name: vcgencmd
@@ -13,22 +13,22 @@
           command: /usr/bin/env cat /sys/class/thermal/thermal_zone0/temp
           comment: Get CPU core temperature. exemple "45622" for 45.6 C
         - key: raspberry.voltage[*]
-          command: >
-            /bin/bash -c 'expr "$(/usr/bin/vcgencmd measure_volts $1)" : "volt=\([0-9\.]\+\)V"'
-          sudo: True
+          command: /usr/bin/vcgencmd measure_volts $1 | grep --only-matching '[0-9.]\+'
+          sudo: true
           sudo_user: root
+          sudo_command: /usr/bin/vcgencmd measure_volts [a-zA-Z]*
           comment: voltages
         - key: raspberry.frequency[*]
-          command: >
-            /bin/bash -c 'expr "$(/usr/bin/vcgencmd measure_clock $1)" : "frequency([0-9]\+)=\([0-9]\+\)"'
-          sudo: True
+          command: /usr/bin/vcgencmd measure_clock $1 | cut -d = -f 2-
+          sudo: true
           sudo_user: root
+          sudo_command: /usr/bin/vcgencmd measure_clock [a-zA-Z]*
           comment: Hardware chips frequencies
         - key: raspberry.firmware_version
-          command: >
-            /bin/bash -c 'expr "$(/usr/bin/vcgencmd version)" : ".*version \([^ ]*\)"'
-          sudo: True
+          command: /usr/bin/vcgencmd version | grep version | awk '{ print $2 }'
+          sudo: true
           sudo_user: root
+          sudo_command: /usr/bin/vcgencmd version
           comment: Firmware version
       state: present
   tags: ['raspberrypi', 'raspberrypi-monitoring']
@@ -36,7 +36,7 @@
 - name: Configure zabbix userparameters for raspberrypi
   include_role:
     name: zabbix-agent
-    tasks_from: userparameter
+    tasks_from: types/user_parameter
   vars:
     zabbix_agent__userparameter:
       name: raspberrypi
@@ -44,8 +44,9 @@
       userparameters:
         - key: raspberry.firmware_update
           command: '{{ raspberrypi__custom_scripts_directory }}/raspberrypi_check_firmware_update.sh 2>/dev/null | grep --count UPDATE_AVAILABLE'
-          sudo: True
+          sudo: true
           sudo_user: root
+          sudo_command: '{{ raspberrypi__custom_scripts_directory }}/raspberrypi_check_firmware_update.sh'
           comment: Firmware version updates
       state: present
   tags: ['raspberrypi', 'raspberrypi-monitoring']

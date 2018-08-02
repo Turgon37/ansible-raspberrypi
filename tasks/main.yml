@@ -14,6 +14,7 @@
 
 - include_tasks: facts.yml
   when: raspberrypi__facts|bool
+  tags: ['raspberrypi', 'raspberrypi-facts']
 
 - import_tasks: configure.yml
   tags: ['raspberrypi', 'raspberrypi-configure']

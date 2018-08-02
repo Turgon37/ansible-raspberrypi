@@ -7,6 +7,7 @@
     group: root
     mode:  0755
     state: directory
+  tags: ['raspberrypi', 'raspberrypi-facts']
 
 - name: Insert custom fact file
   copy:
@@ -14,7 +15,9 @@
     dest: "{{ facts__dir|d('/etc/ansible/facts.d') }}/raspberrypi.fact"
     mode: 0755
   register: _raspberrypi_facts
+  tags: ['raspberrypi', 'raspberrypi-facts']
 
 - name: Re gather facts
   setup: ~
   when: _raspberrypi_facts is changed
+  tags: ['raspberrypi', 'raspberrypi-facts']
